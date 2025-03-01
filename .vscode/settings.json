@@ -1,0 +1,5 @@
+{
+    "code-runner.executorMap": {
+        "java": "mvn package && java -jar ./target/bedrockformation-1.2.jar 123 0 0 1000 1000 -64 -60"
+    }
+}
