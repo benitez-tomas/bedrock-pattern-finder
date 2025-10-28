@@ -4,6 +4,16 @@ This program allows you to search for a specific pattern of bedrock blocks in a 
 
 ## Usage
 
+You can build form source by cloning the repo and running
+
+```bash
+mvn package
+```
+
+from the directory containing the `pom.xml` file. You can find the `.jar` file already built in the releases page.
+
+To run the program, use the following command:
+
 ```bash
 java -jar bedrock_finder.jar <worldSeed> <startFromX> <startFromZ> <areaSizeX> <areaSizeZ> [<block>...]
 ```
@@ -36,7 +46,9 @@ Instead of specifying each block on the command line, you can load a pattern fro
 
 3. The program will automatically read all `.txt` files in the folder and convert them into a pattern.
 
-> Example: a file `-60.txt` containing:
+#### Example
+
+A file named `-60.txt` containing:
 
 ```
 010 11
