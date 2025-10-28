@@ -44,6 +44,6 @@ Instead of specifying each block on the command line, you can load a pattern fro
 010 10
 ```
 
-would produce a 3×3 pattern at **Y = -60**, where bedrock is at positions marked `1` and no bedrock is at positions marked `0`. Spaces are ignored.
+would produce a 6×3 pattern at **Y = -60**, where bedrock is at positions marked `1` and no bedrock is at positions marked `0`. Spaces are ignored.
 
 If no `[block]` arguments are provided, the program will automatically use the patterns loaded from the `pattern` folder.
