@@ -1,57 +1,49 @@
 package com.mike;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Main {
-    public static void main(String[] args) {
-        long seed = Long.parseLong(args[0]);
-        int x = Integer.parseInt(args[1]);
-        int z = Integer.parseInt(args[2]);
-        int xSize = Integer.parseInt(args[3]);
-        int zSize = Integer.parseInt(args[4]);
-        int minY = Integer.parseInt(args[5]);
-        int maxY = Integer.parseInt(args[6]);
+    static ArrayList<BedrockBlock> blocks = new ArrayList<>();
+    static BedrockReader bedrockReader;
 
-        boolean[][][] bedrock = getBedrockMap(seed, x, z, xSize, zSize, minY, maxY);
+    public static void main(String[] args) throws IOException {
+        long seed = 0;
+        int x = 0;
+        int z = 0;
+        int xSize = 0;
+        int zSize = 0;
+        if (args.length < 5) {
+            System.out.println("usage:");
+            System.out.println("   java -jar bedrock_finder-1.0.jar <worldSeed> <startFromX> <startFromZ> <areaSizeX> <areaSizeZ> [<block>...]");
+            return;
+        } else if (args.length == 5) {
+            seed = Long.parseLong(args[0]);
+            x = Integer.parseInt(args[1]);
+            z = Integer.parseInt(args[2]);
+            xSize = Integer.parseInt(args[3]);
+            zSize = Integer.parseInt(args[4]);
+            blocks = new ArrayList<>(PatternMaker.convertAll());
+        } else {
+            Arrays.stream(args).skip(5).forEach((arg) -> blocks.add(new BedrockBlock(arg)));
+        }
+        bedrockReader = new BedrockReader(seed);
 
-        while (true) {
-            try {
-                String coordinates = System.console().readLine();
-                String[] splitCoordinates = coordinates.split(" ");
-
-                int xCoord = Integer.parseInt(splitCoordinates[0]) - x;
-                int zStartCoord = Integer.parseInt(splitCoordinates[1]) - z;
-                int zEndCoord = Integer.parseInt(splitCoordinates[2]) - z;
-
-                // For y values, we will just print the bedrock value at the first y value
-                for (int yCoord = maxY; yCoord >= minY; yCoord--) {
-                    String row = "";
-
-                    for (int zCoord = zStartCoord; zCoord <= zEndCoord; zCoord++) {
-                        row += bedrock[xCoord][yCoord - minY][zCoord] ? "X" : " ";
-                    }
-
-                    System.out.println(row);
+        for (int ix = x; ix < x + xSize; ix++) {
+            for (int iz = z; iz < z + zSize; iz++) {
+                if (checkFormation(ix, iz)) {
+                    System.out.printf("@%d;%d (%d blocks from origin)\n", ix, iz, (int) Math.hypot(ix, iz));
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input");
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Coordinates out of bounds");
             }
         }
+        System.out.println("search finished");
     }
 
-    static boolean[][][] getBedrockMap(long seed, int x, int z, int xSize, int zSize, int minY, int maxY) {
-        BedrockReader bedrockReader = new BedrockReader(seed);
-
-        boolean[][][] bedrock = new boolean[xSize][maxY - minY + 1][zSize];
-
-        for (int i = 0; i < xSize; i++) {
-            for (int j = 0; j < zSize; j++) {
-                for (int k = 0; k < maxY - minY + 1; k++) {
-                    bedrock[i][k][j] = bedrockReader.isBedrock(x + i, minY + k, z + j);
-                }
-            }
+    static boolean checkFormation(int x, int z) {
+        for (BedrockBlock block : blocks) {
+            if (block.shouldBeBedrock != bedrockReader.isBedrock(x + block.x, block.y, z + block.z)) return false;
         }
-
-        return bedrock;
+        return true;
     }
 }
