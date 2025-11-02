@@ -59,3 +59,9 @@ A file named `-60.txt` containing:
 would produce a 6×3 pattern at **Y = -60**, where bedrock is at positions marked `1` and no bedrock is at positions marked `0`. Spaces are ignored.
 
 If no `[block]` arguments are provided, the program will automatically use the patterns loaded from the `pattern` folder.
+
+## Planned features
+
+- Multithreading to speed up search
+- Different search modes and patterns
+- GUI
