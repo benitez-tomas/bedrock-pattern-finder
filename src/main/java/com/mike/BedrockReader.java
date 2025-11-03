@@ -14,7 +14,7 @@ public class BedrockReader {
         floorRandomDeriver = RandomProvider.XOROSHIRO
                 .create(seed).createRandomDeriver()
                 .createRandom(BedrockType.BEDROCK_FLOOR.id.toString()).createRandomDeriver();
-        
+
         roofRandomDeriver = RandomProvider.XOROSHIRO
                 .create(seed).createRandomDeriver()
                 .createRandom(BedrockType.BEDROCK_ROOF.id.toString()).createRandomDeriver();
@@ -29,7 +29,7 @@ public class BedrockReader {
             if (y > bedrockType.max) return false;
 
             probabilityValue = MathHelper.lerpFromProgress(y, bedrockType.min, bedrockType.max, 1.0, 0.0);
-        } else if (bedrockType == BedrockType.BEDROCK_ROOF) {
+        } else {
             if (y == bedrockType.min) return true;
             if (y < bedrockType.max) return false;
 

@@ -9,34 +9,40 @@ public class Main {
     static BedrockReader bedrockReader;
 
     public static void main(String[] args) throws IOException {
-        long seed = 0;
-        int x = 0;
-        int z = 0;
-        int xSize = 0;
-        int zSize = 0;
+        long seed;
+        int xFrom, zFrom, xTo, zTo;
+
         if (args.length < 5) {
             System.out.println("usage:");
             System.out.println("   java -jar bedrock_finder-1.0.jar <worldSeed> <startFromX> <startFromZ> <areaSizeX> <areaSizeZ> [<block>...]");
             return;
-        } else if (args.length == 5) {
-            seed = Long.parseLong(args[0]);
-            x = Integer.parseInt(args[1]);
-            z = Integer.parseInt(args[2]);
-            xSize = Integer.parseInt(args[3]);
-            zSize = Integer.parseInt(args[4]);
+        }
+
+        seed = Long.parseLong(args[0]);
+        xFrom = Integer.parseInt(args[1]);
+        zFrom = Integer.parseInt(args[2]);
+        xTo = Integer.parseInt(args[3]);
+        zTo = Integer.parseInt(args[4]);
+        long totalArea = Math.abs((long) (xTo - xFrom) * (zTo - zFrom));
+        ProgressBar bar = new ProgressBar("Searching...", totalArea);
+
+        if (args.length == 5) {
             blocks = new ArrayList<>(PatternMaker.convertAll());
         } else {
-            Arrays.stream(args).skip(5).forEach((arg) -> blocks.add(new BedrockBlock(arg)));
+            Arrays.stream(args).skip(5).forEach(arg -> blocks.add(new BedrockBlock(arg)));
         }
+
         bedrockReader = new BedrockReader(seed);
 
-        for (int ix = x; ix < x + xSize; ix++) {
-            for (int iz = z; iz < z + zSize; iz++) {
-                if (checkFormation(ix, iz)) {
-                    System.out.printf("@%d;%d (%d blocks from origin)\n", ix, iz, (int) Math.hypot(ix, iz));
+        for (int x = xFrom; x < xTo; x++) {
+            for (int z = zFrom; z < zTo; z++) {
+                if (checkFormation(x, z)) {
+                    System.out.printf("\r\033[2K@%d;%d (%d blocks from origin)\n", x, z, (int) Math.hypot(x, z));
                 }
+                bar.step();
             }
         }
+
         System.out.println("search finished");
     }
 
