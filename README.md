@@ -15,14 +15,14 @@ from the directory containing the `pom.xml` file. You can find the `.jar` file a
 To run the program, use the following command:
 
 ```bash
-java -jar bedrock_finder-1.0.jar <worldSeed> <startFromX> <startFromZ> <areaSizeX> <areaSizeZ> [<block>...]
+java -jar bedrock_finder-1.0.jar <worldSeed> <fromX> <fromZ> <toX> <toZ> [<block>...]
 ```
 
 ### Parameters
 
 - `worldSeed`: the seed of the Minecraft world to search.
-- `startFromX` and `startFromZ`: the starting coordinates for the search.
-- `areaSizeX` and `areaSizeZ`: the width and length of the area to scan (along X and Z axes).
+- `fromX` and `fromZ`: the starting coordinates for the search.
+- `toX` and `toZ`: the ending coordinates for the search
 - `[block]...`: optional list of blocks that define the pattern. Each block is a string in the format:
 
 ```
