@@ -15,7 +15,7 @@ from the directory containing the `pom.xml` file. You can find the `.jar` file a
 To run the program, use the following command:
 
 ```bash
-java -jar bedrock_finder.jar <worldSeed> <startFromX> <startFromZ> <areaSizeX> <areaSizeZ> [<block>...]
+java -jar bedrock_finder-1.0.jar <worldSeed> <startFromX> <startFromZ> <areaSizeX> <areaSizeZ> [<block>...]
 ```
 
 ### Parameters
@@ -59,3 +59,9 @@ A file named `-60.txt` containing:
 would produce a 6×3 pattern at **Y = -60**, where bedrock is at positions marked `1` and no bedrock is at positions marked `0`. Spaces are ignored.
 
 If no `[block]` arguments are provided, the program will automatically use the patterns loaded from the `pattern` folder.
+
+## Planned features
+
+- Multithreading to speed up search
+- Different search modes and patterns
+- GUI
