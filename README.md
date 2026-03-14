@@ -15,7 +15,7 @@ from the directory containing the `pom.xml` file. You can find the `.jar` file a
 To run the program, use the following command:
 
 ```bash
-java -jar bedrock_finder-1.0.jar <worldSeed> <fromX> <fromZ> <toX> <toZ> [<block>...]
+java -jar bedrock_finder-1.1.0.jar <worldSeed> <fromX> <fromZ> <toX> <toZ> [<block>...]
 ```
 
 ### Parameters
