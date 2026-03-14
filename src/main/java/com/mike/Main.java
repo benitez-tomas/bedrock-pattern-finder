@@ -14,7 +14,7 @@ public class Main {
 
         if (args.length < 5) {
             System.out.println("usage:");
-            System.out.println("   java -jar bedrock_finder-1.0.jar <worldSeed> <startFromX> <startFromZ> <areaSizeX> <areaSizeZ> [<block>...]");
+            System.out.println("   java -jar bedrock_finder-1.1.0.jar <worldSeed> <fromX> <fromZ> <toX> <toZ> [<block>...]");
             return;
         }
 
